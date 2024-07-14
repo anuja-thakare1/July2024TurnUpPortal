@@ -90,7 +90,6 @@ class Program
         }
         else
         {
-            Console.WriteLine("New Time record has not created");
-        } 
+            Console.WriteLine("New Time record has not created");        } 
     }
 }
