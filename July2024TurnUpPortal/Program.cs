@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Collections.Generic;
+using System.Threading;
 
 class Program
 {
@@ -36,11 +37,11 @@ class Program
 
 
         }
-          // Create Time and Material Record
+        // Create Time and Material Record
 
-         // Navigate to Time and Material Page
+        // Navigate to Time and Material Page
 
-            IWebElement administrationTab = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
+        IWebElement administrationTab = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
         administrationTab.Click();
 
         IWebElement timeandMaterialOption = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[3]/a"));
@@ -54,12 +55,14 @@ class Program
         IWebElement typeCodeDropdown = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
         typeCodeDropdown.Click();
 
+        Thread.Sleep(2000);
+
         IWebElement timeOption = driver.FindElement(By.XPath("//*[@id=\'TypeCode_listbox\']/li[2]"));
-              timeOption.Click();
+        timeOption.Click();
 
         // Type Code into Text Box
         IWebElement codeTextBox = driver.FindElement(By.Id("Code"));
-        codeTextBox.SendKeys("July2024TurnUpPortal");
+        codeTextBox.SendKeys("Anuja_Code");
 
         // Type Desciption into Discription Text box
         IWebElement descriptionTextBox = driver.FindElement(By.Id("Description"));
@@ -71,7 +74,7 @@ class Program
 
         IWebElement priceTextBox = driver.FindElement(By.Id("Price"));
         priceTextBox.SendKeys("12");
-                // Click on Save button 
+        // Click on Save button 
         IWebElement saveButton = driver.FindElement(By.Id("SaveButton"));
         saveButton.Click();
 
@@ -83,13 +86,62 @@ class Program
 
         IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[1]"));
 
-        if (newCode.Text== "July2024TurnUpPortal")
+        if (newCode.Text == "Anuja_Code")
         {
             Console.WriteLine("Time Record created successfully");
 
         }
         else
         {
-            Console.WriteLine("New Time record has not created");        } 
-    }
+            Console.WriteLine("New Time record has not created");
+        }
+
+
+        // Click On Edit Button 
+        IWebElement clickOnEditButton = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
+        clickOnEditButton.Click();
+
+
+        // Clear and Edit Desciption into Discription Text box
+        IWebElement editedDescriptionTextBox = driver.FindElement(By.Id("Description"));
+        editedDescriptionTextBox.Clear();
+        editedDescriptionTextBox.SendKeys("Edited by Anuja");
+
+        Thread.Sleep(2000);
+
+        // Edit Price into Price Text box
+
+        IWebElement editPriceTagOverlap = driver.FindElement(By.XPath("//*[@id=\'TimeMaterialEditForm\']/div/div[4]/div/span[1]/span/input[1]"));
+        editPriceTagOverlap.Clear();
+        
+           
+        IWebElement editPriceTextBox = driver.FindElement(By.XPath("//*[@id=\'Price\']"));
+        editPriceTextBox.SendKeys("88.88"); 
+
+        // Click on Save button 
+
+        IWebElement saveButton1 = driver.FindElement(By.Id("SaveButton"));
+        saveButton1.Click();
+
+               
+        Thread.Sleep(2000);
+
+        // Check if the Time record has been edited successfully  
+        IWebElement goToLastPageEditButton = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[4]/a[4]"));
+        goToLastPageEditButton.Click();
+
+        IWebElement newCode1 = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[1]"));
+
+        if (newCode1.Text == "Anuja_Code")
+        {
+            Console.WriteLine("Time Record edited successfully");
+
+        }
+        else
+        {
+            Console.WriteLine("New Time record has not edited");
+        }
+
+    }   
 }
+
