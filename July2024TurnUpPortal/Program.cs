@@ -113,17 +113,17 @@ class Program
 
         IWebElement editPriceTagOverlap = driver.FindElement(By.XPath("//*[@id=\'TimeMaterialEditForm\']/div/div[4]/div/span[1]/span/input[1]"));
         editPriceTagOverlap.Clear();
-        
-           
+
+
         IWebElement editPriceTextBox = driver.FindElement(By.XPath("//*[@id=\'Price\']"));
-        editPriceTextBox.SendKeys("88.88"); 
+        editPriceTextBox.SendKeys("88.88");
 
         // Click on Save button 
 
         IWebElement saveButton1 = driver.FindElement(By.Id("SaveButton"));
         saveButton1.Click();
 
-               
+
         Thread.Sleep(2000);
 
         // Check if the Time record has been edited successfully  
@@ -142,6 +142,42 @@ class Program
             Console.WriteLine("New Time record has not edited");
         }
 
-    }   
-}
+        //Click on Delete Button
 
+        Thread.Sleep(5000);
+        IWebElement goToLastPageEditButton1 = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[4]/a[4]"));
+        goToLastPageEditButton.Click();
+        Thread.Sleep(5000);
+
+        IWebElement newCode2 = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[1]"));
+        newCode2.Click();
+        Thread.Sleep(3000);
+
+        IWebElement goToLastPageDeleteButton = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
+        goToLastPageDeleteButton.Click();
+        Thread.Sleep(5000);
+
+        driver.SwitchTo().Alert().Accept();
+        Thread.Sleep(5000);
+
+        driver.Navigate().Refresh();
+
+        // Check if the  record has been deleted successfully  
+        IWebElement goToLastPageDeleteButton2 = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[4]/a[4]"));
+        goToLastPageDeleteButton2.Click();
+
+        IWebElement newCode3= driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[1]"));
+
+           if (newCode3.Text == "Anuja_Code")
+        {
+            Console.WriteLine("Time Record has not been Deleted ");
+
+        }
+           else
+        {
+            Console.WriteLine("Time Record has been Deleted successfully");
+        }
+
+
+    }
+}
