@@ -10,7 +10,7 @@ namespace July2024TurnUpPortal.Pages
 {
     public class TimeAndMaterialPage
     {
-        public void CreateTimeRecord(IWebDriver driver)
+        public void CreateTimeRecord(IWebDriver driver )
         {
             // Click on Create New Button 
             IWebElement createNewButton = driver.FindElement(By.XPath("//*[@id=\"container\"]/p/a"));
@@ -22,9 +22,9 @@ namespace July2024TurnUpPortal.Pages
             IWebElement typeCodeDropdown = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
             typeCodeDropdown.Click();
 
-            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\'TypeCode_listbox\']/li[2]", 5);
-
+            
             IWebElement timeOption = driver.FindElement(By.XPath("//*[@id=\'TypeCode_listbox\']/li[2]"));
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\'TypeCode_listbox\']/li[2]", 6);
             timeOption.Click();
 
             // Type Code into Text Box
@@ -42,21 +42,23 @@ namespace July2024TurnUpPortal.Pages
             IWebElement priceTextBox = driver.FindElement(By.Id("Price"));
             priceTextBox.SendKeys("12");
 
-            Wait.WaitToBeClickable(driver, "Id", "SaveButton", 3);
+            Wait.WaitToBeClickable(driver, "Id", "SaveButton",5);
 
             // Click on Save button 
             IWebElement saveButton = driver.FindElement(By.Id("SaveButton"));
             saveButton.Click();
-            Thread.Sleep(2000);
+
+            //Thread.Sleep(2000);
+            driver.Navigate().Refresh();
+            Wait.WaitToBeVisible(driver, "XPath", "//*[@id=\"tmsGrid\"]/div[1]", 6);
 
             // Check if the Time record has been created successfully  
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"tmsGrid\"]/div[4]/a[4]/span",6);
             goToLastPageButton.Click();
 
-            Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]", 3);
-
-            //Thread.Sleep(2000);
-
+            Thread.Sleep(1000);
+            
             IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[1]"));
 
             if (newCode.Text == "Anuja_Code")
@@ -74,6 +76,16 @@ namespace July2024TurnUpPortal.Pages
 
         public void EditTimeRecord(IWebDriver driver) 
         {
+            driver.Navigate().Refresh();
+            Wait.WaitToBeVisible(driver, "XPath", "//*[@id=\"tmsGrid\"]/div[1]", 6);
+
+            // Check if the Time record has been created successfully  
+            IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"tmsGrid\"]/div[4]/a[4]/span", 6);
+            goToLastPageButton.Click();
+
+            Thread.Sleep(2000);
+
             // Click On Edit Button 
             IWebElement clickOnEditButton = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
             clickOnEditButton.Click();
@@ -84,15 +96,19 @@ namespace July2024TurnUpPortal.Pages
             editedDescriptionTextBox.Clear();
             editedDescriptionTextBox.SendKeys("Edited by Anuja");
 
-            Thread.Sleep(2000);
+            
+             //Thread.Sleep(2000);
 
             // Edit Price into Price Text box
 
             IWebElement editPriceTagOverlap = driver.FindElement(By.XPath("//*[@id=\'TimeMaterialEditForm\']/div/div[4]/div/span[1]/span/input[1]"));
-            editPriceTagOverlap.Clear();
+            editPriceTagOverlap.Click();
 
 
             IWebElement editPriceTextBox = driver.FindElement(By.XPath("//*[@id=\'Price\']"));
+            editPriceTextBox.Clear();
+
+            editPriceTagOverlap.Click();
             editPriceTextBox.SendKeys("88.88");
 
             // Click on Save button 
@@ -101,7 +117,7 @@ namespace July2024TurnUpPortal.Pages
             saveButton1.Click();
             
 
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
 
             // Check if the Time record has been edited successfully  
             IWebElement goToLastPageEditButton = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[4]/a[4]"));
@@ -124,29 +140,33 @@ namespace July2024TurnUpPortal.Pages
         public void DeleteTimeRecord(IWebDriver driver) 
         {
             //Click on Delete Button
-
-            Thread.Sleep(5000);
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\'tmsGrid\']/div[4]/a[4]", 5);
+;            //Thread.Sleep(5000);
             IWebElement goToLastPageEditButton1 = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[4]/a[4]"));
             goToLastPageEditButton1.Click();
-            Thread.Sleep(5000);
 
+
+            //Thread.Sleep(5000);
+            Wait.WaitToBeClickable(driver, "XPath","//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[1]", 5);
             IWebElement newCode2 = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[1]"));
             newCode2.Click();
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
 
             IWebElement goToLastPageDeleteButton = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[5]/a[2]", 5);
             goToLastPageDeleteButton.Click();
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
 
             driver.SwitchTo().Alert().Accept();
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
 
             driver.Navigate().Refresh();
 
             // Check if the  record has been deleted successfully  
             IWebElement goToLastPageDeleteButton2 = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[4]/a[4]"));
+            Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\'tmsGrid\']/div[4]/a[4]", 5);
             goToLastPageDeleteButton2.Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
 
             IWebElement newCode3 = driver.FindElement(By.XPath("//*[@id=\'tmsGrid\']/div[3]/table/tbody/tr[last()]/td[1]"));
 

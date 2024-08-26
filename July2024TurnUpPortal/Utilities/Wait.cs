@@ -14,6 +14,7 @@ namespace July2024TurnUpPortal.Utilities
         public static void WaitToBeClickable(IWebDriver driver,string locaterType, string locaterValue,int Seconds )
         {
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0,Seconds));
+
             if (locaterType == "Xpath")
             {
                 wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath(locaterValue)));
@@ -30,11 +31,11 @@ namespace July2024TurnUpPortal.Utilities
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, Seconds));
             if (locaterType == "Xpath")
             {
-                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath(locaterValue)));
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(locaterValue)));
             }
             if (locaterType == "Id")
             {
-                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id(locaterValue)));
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id(locaterValue)));
             }
         }
     }

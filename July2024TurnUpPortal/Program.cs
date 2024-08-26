@@ -1,6 +1,7 @@
 ﻿using July2024TurnUpPortal.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -15,9 +16,14 @@ namespace July2024TurnUpPortal
 
             options.AddExcludedArgument("enable-automation");
             options.AddArgument("--start-maximized");
+
+            options.AddUserProfilePreference("credentials_enable_service", false);
+            options.AddUserProfilePreference("profile.password_manager_enabled", false);
+
             Thread.Sleep(1000);
 
             IWebDriver driver = new ChromeDriver(options);
+
 
             //Login page initialization and defination 
             LoginPage loginPageObj = new LoginPage();

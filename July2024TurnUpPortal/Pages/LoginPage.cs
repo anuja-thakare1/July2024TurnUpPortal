@@ -44,7 +44,8 @@ namespace July2024TurnUpPortal.Pages
             IWebElement login = driver.FindElement(By.XPath("//*[@id=\"loginForm\"]/form/div[3]/input[1]"));
             login.Click();
 
-            Thread.Sleep(2000);
+            Wait.WaitToBeClickable(driver,"XPath","//*[@id=\"loginForm\"]/form/div[3]/input[1]",5);
+            //Thread.Sleep(2000);
             
         }
     }
